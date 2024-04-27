@@ -9,23 +9,23 @@ import matplotlib.pyplot as plt
 # Load the dataset
 data = pd.read_csv('C:\\Kode\\GitHub\\Part E\\avocado.csv')
 
-# Convert 'Date' to datetime and extract year, month, and day
+# Convert Date to datetime and extract year, month, and day
 data['Date'] = pd.to_datetime(data['Date'])
 data['Year'] = data['Date'].dt.year
 data['Month'] = data['Date'].dt.month
 data['Day'] = data['Date'].dt.day
 data.drop('Date', axis=1, inplace=True)  # Drop the original 'Date' column if no longer needed
 
-# Handling categorical data with one-hot encoding
+# Handling categorical data 
 encoder = OneHotEncoder()
 regions_encoded = encoder.fit_transform(data[['region']]).toarray()  # Convert sparse matrix to a dense matrix
 regions_encoded_df = pd.DataFrame(regions_encoded, columns=encoder.get_feature_names_out(['region']))
 
-# Concatenate encoded data with the original dataframe
+# Concatenate encoded data
 data = pd.concat([data.drop(['region'], axis=1), regions_encoded_df], axis=1)
 
 # Prepare data for clustering
-features = data.select_dtypes(include=[np.number])  # Selecting only numeric data for clustering
+features = data.select_dtypes(include=[np.number])  
 scaler = StandardScaler()
 features_scaled = scaler.fit_transform(features)
 
@@ -42,7 +42,7 @@ plt.ylabel('Distance')
 plt.show()
 
 # K-Means Clustering
-# Choose the number of clusters
+# Number of clusters
 k = 5
 kmeans = KMeans(n_clusters=k, random_state=42).fit(features_scaled)
 labels = kmeans.labels_

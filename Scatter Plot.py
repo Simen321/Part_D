@@ -22,5 +22,5 @@ sns.scatterplot(data=avocado_data, x='AveragePrice', y='Total Volume', hue='type
 plt.title('Scatter Plot of Average Price vs Total Volume by Type')
 plt.xlabel('Average Price')
 plt.ylabel('Total Volume')
-plt.yscale('log')  # Applying log scale to y-axis for better visibility of data groupings
+plt.yscale('log') 
 plt.show()
